@@ -517,6 +517,9 @@ Make sure disabled buttons don't get the pointer cursor.
 :disabled {
   cursor: default;
 }
+#bi_exclamation{
+  font-size: 50px;
+}
 
 /*
 1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)

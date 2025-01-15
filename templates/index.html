@@ -54,7 +54,7 @@ https://templatemo.com/tm-590-topic-listing
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_2">Browse Topics</a>
+                                <a class="nav-link click-scroll" href="#section_2">Browse Topics/AI</a>
                             </li>
     
                             <li class="nav-item">
@@ -97,7 +97,7 @@ https://templatemo.com/tm-590-topic-listing
 
                             <h6 class="text-center">platform for creatives AI Models around the world</h6>
 
-                            <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
+                            {% comment %} <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-text bi-search" id="basic-addon1">
                                         
@@ -107,7 +107,7 @@ https://templatemo.com/tm-590-topic-listing
 
                                     <button type="submit" class="form-control">Search</button>
                                 </div>
-                            </form>
+                            </form> {% endcomment %}
                         </div>
 
                     </div>
@@ -189,7 +189,7 @@ https://templatemo.com/tm-590-topic-listing
                     <div class="row">
 
                         <div class="col-12 text-center">
-                            <h2 class="mb-4">Browse Topics</h1>
+                            <h2 class="mb-4">Browse Topics / AI Models</h1>
                         </div>
 
                     </div>
@@ -253,7 +253,7 @@ https://templatemo.com/tm-590-topic-listing
                                                         <div>
                                                             <h5 class="mb-2">Image Classification</h5>
 
-                                                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                                <p class="mb-0">Image classification identifies the content of an image, such as determining whether it shows a dog or a cat.</p>
                                                         </div>
 
                                                         <span class="badge bg-design rounded-pill ms-auto">75</span>
@@ -271,7 +271,7 @@ https://templatemo.com/tm-590-topic-listing
                                                         <div>
                                                             <h5 class="mb-2">Face Recognition</h5>
 
-                                                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                                <p class="mb-0">Face recognition identifies and verifies individuals in images or videos by analyzing facial features using AI.</p>
                                                         </div>
 
                                                         <span class="badge bg-design rounded-pill ms-auto">100</span>
@@ -293,7 +293,7 @@ https://templatemo.com/tm-590-topic-listing
                                                             <div>
                                                                 <h5 class="mb-2">Sentiment Analysis</h5>
 
-                                                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                                <p class="mb-0">Sentiment analysis detects emotions in text, identifying it as positive, negative, or neutral using AI.</p>
                                                             </div>
 
                                                             <span class="badge bg-advertising rounded-pill ms-auto">30</span>
@@ -311,7 +311,7 @@ https://templatemo.com/tm-590-topic-listing
                                                             <div>
                                                                 <h5 class="mb-2">Text Summarization</h5>
 
-                                                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                                <p class="mb-0">Text summarization condenses long texts into concise summaries while retaining key information.</p>
                                                             </div>
 
                                                             <span class="badge bg-advertising rounded-pill ms-auto">65</span>
@@ -329,7 +329,7 @@ https://templatemo.com/tm-590-topic-listing
                                                             <div>
                                                                 <h5 class="mb-2">Language Translation</h5>
 
-                                                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                                <p class="mb-0">Language translation converts text from one language to another using AI for accuracy and fluency.</p>
                                                             </div>
 
                                                             <span class="badge bg-advertising rounded-pill ms-auto">50</span>
@@ -350,7 +350,7 @@ https://templatemo.com/tm-590-topic-listing
                                                         <div>
                                                             <h5 class="mb-2">Model Training</h5>
 
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                            <p class="mb-0">Model training involves teaching an AI system to make predictions by learning patterns from data.</p>
                                                         </div>
 
                                                         <span class="badge bg-finance rounded-pill ms-auto">30</span>
@@ -370,7 +370,7 @@ https://templatemo.com/tm-590-topic-listing
                                                         <div>
                                                             <h5 class="text-white mb-2">Neural Networks</h5>
 
-                                                            <p class="text-white">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint animi necessitatibus aperiam repudiandae nam omnis</p>
+                                                            <p class="text-white">A neural network is an AI model inspired by the human brain, designed to recognize patterns and solve complex tasks.</p>
 
                                                             <a href="{% url "Finance_card_detail" %}" class="btn custom-btn mt-2 mt-lg-3">Learn More</a>
                                                         </div>
@@ -412,15 +412,15 @@ https://templatemo.com/tm-590-topic-listing
                                                 <a href="{% url "Composing_song_card_detail" %}">
                                                     <div class="d-flex">
                                                         <div>
-                                                            <h5 class="mb-2">Composing Song</h5>
+                                                            <h5 class="mb-2">Frontend Development</h5>
 
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                            <p class="mb-0">Frontend development focuses on creating interactive, user-friendly web interfaces using HTML, CSS, JavaScript, and frameworks like React.</p>
                                                         </div>
 
                                                         <span class="badge bg-music rounded-pill ms-auto">45</span>
                                                     </div>
 
-                                                    <img src="{% static 'images/topics/undraw_Compose_music_re_wpiw.png' %}" class="custom-block-image img-fluid" alt="">
+                                                    <img src="{% static 'images\topics\Fontend_webdevelopment.webp' %}" class="custom-block-image img-fluid" alt="">
                                                 </a>
                                             </div>
                                         </div>
@@ -430,15 +430,15 @@ https://templatemo.com/tm-590-topic-listing
                                                 <a href="{% url "Online_song_card_detail" %}">
                                                     <div class="d-flex">
                                                         <div>
-                                                            <h5 class="mb-2">Online Music</h5>
+                                                            <h5 class="mb-2">Backend Development</h5>
 
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                            <p class="mb-0">Backend development involves server-side logic, databases, and APIs using technologies like Python, Django, and Node.js to handle data and user requests.</p>
                                                         </div>
 
                                                         <span class="badge bg-music rounded-pill ms-auto">45</span>
                                                     </div>
 
-                                                    <img src="{% static 'images/topics/undraw_happy_music_g6wc.png' %}" class="custom-block-image img-fluid" alt="">
+                                                    <img src="{% static 'images\topics\Backend_development.webp' %}" class="custom-block-image img-fluid" alt="">
                                                 </a>
                                             </div>
                                         </div>
@@ -448,15 +448,15 @@ https://templatemo.com/tm-590-topic-listing
                                                 <a href="{% url "Podcast_card_detail" %}">
                                                     <div class="d-flex">
                                                         <div>
-                                                            <h5 class="mb-2">Podcast</h5>
+                                                            <h5 class="mb-2">Full Stack Development</h5>
 
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                            <p class="mb-0">Full Stack development combines frontend and backend skills to build complete web applications, handling both user interfaces and server-side functionality.</p>
                                                         </div>
 
                                                         <span class="badge bg-music rounded-pill ms-auto">20</span>
                                                     </div>
 
-                                                    <img src="{% static 'images/topics/undraw_Podcast_audience_re_4i5q.png' %}" class="custom-block-image img-fluid" alt="">
+                                                    <img src="{% static 'images\topics\Full_Stack_Developer.webp' %}" class="custom-block-image img-fluid" alt="">
                                                 </a>
                                             </div>
                                         </div>
@@ -470,15 +470,15 @@ https://templatemo.com/tm-590-topic-listing
                                                 <a href="{% url "Graduation_card_detail" %}">
                                                     <div class="d-flex">
                                                         <div>
-                                                            <h5 class="mb-2">Graduation</h5>
+                                                            <h5 class="mb-2">E-Learning Solutions</h5>
 
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                            <p class="mb-0">E-Learning solutions enable online education through courses, virtual classrooms, and LMS, making learning accessible and flexible.</p>
                                                         </div>
 
                                                         <span class="badge bg-education rounded-pill ms-auto">80</span>
                                                     </div>
 
-                                                    <img src="{% static 'images/topics/undraw_Graduation_re_gthn.png' %}" class="custom-block-image img-fluid" alt="">
+                                                    <img src="{% static 'images\topics\E-Learning.jpg' %}" class="custom-block-image img-fluid" alt="">
                                                 </a>
                                             </div>
                                         </div>
@@ -488,15 +488,15 @@ https://templatemo.com/tm-590-topic-listing
                                                 <a href="{% url "Educator_card_detail" %}">
                                                     <div class="d-flex">
                                                         <div>
-                                                            <h5 class="mb-2">Educator</h5>
+                                                            <h5 class="mb-2">AI in Education</h5>
 
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                            <p class="mb-0">AI in education personalizes learning, automates tasks, and provides data-driven insights to improve student outcomes.</p>
                                                         </div>
 
                                                         <span class="badge bg-education rounded-pill ms-auto">75</span>
                                                     </div>
 
-                                                    <img src="{% static 'images/topics/undraw_Educator_re_ju47.png' %}" class="custom-block-image img-fluid" alt="">
+                                                    <img src="{% static 'images\topics\Ai_in_learning.webp' %}" class="custom-block-image img-fluid" alt="">
                                                 </a>
                                             </div>
                                         </div>
@@ -527,32 +527,32 @@ https://templatemo.com/tm-590-topic-listing
                                     </div>
 
                                     <li>
-                                        <h4 class="text-white mb-3">Search your favourite topic</h4>
+                                        <h4 class="text-white mb-3">Problem Understanding</h4>
 
-                                        <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, cumque magnam? Sequi, cupiditate quibusdam alias illum sed esse ad dignissimos libero sunt, quisquam numquam aliquam? Voluptas, accusamus omnis?</p>
+                                        <p class="text-white">I start by deeply understanding the problem at hand, identifying key challenges, and defining clear goals to ensure a focused solution.</p>
 
                                         <div class="icon-holder">
-                                          <i class="bi-search"></i>
+                                            <i class="bi bi-exclamation-lg"></i>
                                         </div>
                                     </li>
                                     
                                     <li>
-                                        <h4 class="text-white mb-3">Bookmark &amp; Keep it for yourself</h4>
+                                        <h4 class="text-white mb-3">Solution Development</h4>
 
-                                        <p class="text-white">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint animi necessitatibus aperiam repudiandae nam omnis est vel quo, nihil repellat quia velit error modi earum similique odit labore. Doloremque, repudiandae?</p>
+                                        <p class="text-white">Using the latest technologies, I develop the solution, whether it's an AI model, web application, or any other technology-driven project, tailored to meet the requirements.</p>
 
                                         <div class="icon-holder">
-                                          <i class="bi-bookmark"></i>
+                                            <i class="bi bi-code-slash"></i>
                                         </div>
                                     </li>
 
                                     <li>
-                                        <h4 class="text-white mb-3">Read &amp; Enjoy</h4>
+                                        <h4 class="text-white mb-3">Testing and Optimization</h4>
 
-                                        <p class="text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi vero quisquam, rem assumenda similique voluptas distinctio, iste est hic eveniet debitis ut ducimus beatae id? Quam culpa deleniti officiis autem?</p>
+                                        <p class="text-white">Once the solution is developed, I rigorously test it for performance and user experience, making optimizations to ensure it delivers optimal results.</p>
 
                                         <div class="icon-holder">
-                                          <i class="bi-book"></i>
+                                            <i class="bi bi-check"></i>
                                         </div>
                                     </li>
                                 </ul>
@@ -589,13 +589,13 @@ https://templatemo.com/tm-590-topic-listing
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingOne">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        What is Topic Listing?
+                                            What is deep learning?
                                         </button>
                                     </h2>
 
                                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
-                                            Topic Listing is free Bootstrap 5 CSS template. <strong>You are not allowed to redistribute this template</strong> on any other template collection website without our permission. Please contact TemplateMo for more detail. Thank you.
+                                            Deep learning is a subset of machine learning that uses  <strong>multi-layered neural networks</strong> to analyze data and make predictions, learning patterns directly from raw data.
                                         </div>
                                     </div>
                                 </div>
@@ -603,13 +603,13 @@ https://templatemo.com/tm-590-topic-listing
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingTwo">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        How to find a topic?
+                                            What is the difference between deep learning and machine learning?
                                     </button>
                                     </h2>
 
                                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
-                                            You can search on Google with <strong>keywords</strong> such as templatemo portfolio, templatemo one-page layouts, photography, digital marketing, etc.
+                                            Deep learning is a more advanced form of machine learning that uses <strong>complex neural networks to handle large</strong>, unstructured data, while traditional machine learning often requires manual feature extraction.
                                         </div>
                                     </div>
                                 </div>
@@ -617,13 +617,13 @@ https://templatemo.com/tm-590-topic-listing
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingThree">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Does it need to paid?
+                                            What are the applications of deep learning?
                                     </button>
                                     </h2>
 
                                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
-                                            You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                            Deep learning is used in various fields such as image and speech recognition, natural language processing, self-driving cars, and medical diagnostics.
                                         </div>
                                     </div>
                                 </div>
