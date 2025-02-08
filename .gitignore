@@ -25,3 +25,4 @@ node_modules/
 static/
 media/
 save_model/
+save_model/variables/
