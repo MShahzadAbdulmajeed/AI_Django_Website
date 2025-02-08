@@ -17,6 +17,7 @@ urlpatterns = [
     path('Educator', views.Educator_card_detail, name='Educator_card_detail'),
     path('contact', views.contact, name='contact'),
     path('Topics-listing', views.Topics_listing, name='Topics_listing'),
-    
+    path("object-detection-view/", views.object_detection_view, name="object_detection_view"),
+    path("object-detection/", views.object_detection, name="object_detection"),
     
 ]

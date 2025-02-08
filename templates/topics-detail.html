@@ -1,4 +1,4 @@
-<!doctype html>
+{% comment %} {% comment %} <!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -258,4 +258,63 @@ https://templatemo.com/tm-590-topic-listing
         <script src="{% static "js/custom.js" %}"></script>
 
     </body>
-</html>
+</html> {% endcomment %} {% endcomment %}
+
+
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <title>Live Object Detection</title>
+</head>
+<body>
+    <h1>Live Object Detection</h1>
+    
+    <video id="inputVideo" autoplay playsinline></video>
+    <canvas id="preview"></canvas>
+    <img id="outputImage" alt="Detected Objects">
+    
+    <script>
+        const video = document.getElementById('inputVideo');
+        const canvas = document.getElementById('preview');
+        const ctx = canvas.getContext('2d');
+        const outputImage = document.getElementById('outputImage');
+
+        // Access the webcam
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+            .then((stream) => {
+                video.srcObject = stream;
+                
+                // Set up the canvas to match video dimensions
+                video.addEventListener('loadedmetadata', () => {
+                    const width = video.videoWidth;
+                    const height = video.videoHeight;
+                    canvas.width = width;
+                    canvas.height = height;
+                });
+
+                // Draw frame periodically
+                setInterval(() => {
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    
+                    // Convert canvas to blob and send to server
+                    canvas.toBlob((blob) => {
+                        const formData = new FormData();
+                        formData.append('image', new File([blob], 'frame.jpg'));
+                        
+                        fetch('/object-detection/', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.blob())
+                        .then(blob => {
+                            outputImage.src = URL.createObjectURL(blob);
+                        });
+                    }, 'image/jpeg');
+                }, 1000); // Adjust the interval as needed
+            })
+            .catch((err) => {
+                console.log('Error accessing webcam:', err);
+            });
+    </script>
+</body>
+</html> {% endcomment %}

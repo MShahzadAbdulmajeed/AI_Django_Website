@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Object Detection</title>
+    <style>
+        video, canvas, img {
+            display: block;
+            max-width: 100%;
+            margin: 10px auto;
+        }
+        canvas {
+            display: none; /* Hide canvas to optimize performance */
+        }
+    </style>
+</head>
+<body>
+    <h1>Live Object Detection</h1>
+
+    <video id="inputVideo" autoplay playsinline></video>
+    <canvas id="preview"></canvas>
+    <img id="outputImage" alt="Detected Objects">
+
+    <script>
+        function getCSRFToken() {
+            return document.cookie.split('; ')
+                .find(row => row.startsWith('csrftoken='))
+                ?.split('=')[1];
+        }
+    
+        const video = document.getElementById('inputVideo');
+        const canvas = document.getElementById('preview');
+        const ctx = canvas.getContext('2d');
+        const outputImage = document.getElementById('outputImage');
+        let lastObjectURL = null; 
+    
+        async function getFrameBlob() {
+            return new Promise((resolve) => {
+                const dataURL = canvas.toDataURL("image/jpeg", 0.7); 
+                fetch(dataURL)
+                    .then(res => res.blob())
+                    .then(resolve);
+            });
+        }
+    
+        async function captureFrame() {
+            if (!video.videoWidth || !video.videoHeight) return;
+    
+            canvas.width = 320;  // Reduce size for faster API response
+            canvas.height = 240;
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+            const blob = await getFrameBlob();
+            const formData = new FormData();
+            formData.append('image', new File([blob], 'frame.jpg'));
+    
+            try {
+                const response = await fetch("{% url 'object_detection' %}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'X-CSRFToken': getCSRFToken() },
+                    timeout: 6000 
+                });
+    
+                if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+    
+                const resultBlob = await response.blob();
+    
+                if (lastObjectURL) URL.revokeObjectURL(lastObjectURL);
+                lastObjectURL = URL.createObjectURL(resultBlob);
+                outputImage.src = lastObjectURL;
+    
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+    
+        async function processLiveFrames() {
+            while (true) {
+                await captureFrame();
+            }
+        }
+    
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+            .then((stream) => {
+                video.srcObject = stream;
+                processLiveFrames();
+            })
+            .catch((err) => console.error('Error accessing webcam:', err));
+    </script>
+</body>
+</html>
