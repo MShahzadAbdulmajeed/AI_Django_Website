@@ -1,8 +1,17 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-import sys
-import os
+app = FastAPI()
 
-# Ensure Django app is in sys.path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+# Allow requests from Django frontend (127.0.0.1:8000)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://127.0.0.1:8000"],  # Frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
-from portfolio.fastapi_app import app  # Import FastAPI app
+@app.get("/")
+async def root():
+    return {"message": "FastAPI is running on port 9000"}

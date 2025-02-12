@@ -308,85 +308,190 @@ COCO_CLASSES = {
 }
 
 
+# from fastapi import FastAPI, UploadFile, File
+# from fastapi.responses import Response
+# import tensorflow as tf
+# import numpy as np
+# import cv2
+# from PIL import Image
+# import io
+
+# app = FastAPI()
+
+# # Load the model
+# MODEL_PATH = "save_model"
+# model = tf.saved_model.load(MODEL_PATH)
+# infer = model.signatures['serving_default']
+
+# # def preprocess_image(image_bytes):
+# #     """Preprocess uploaded image for model inference."""
+# #     img = Image.open(io.BytesIO(image_bytes)).convert("RGB")  # Open and convert to RGB
+# #     img = np.array(img)  # Convert to NumPy array
+# #     img = tf.image.resize(img, (640, 640))  # Resize to model input size
+# #     img = np.clip(img, 0, 255).astype(np.uint8)  # Ensure uint8 format
+# #     img_tensor = tf.convert_to_tensor(img)  # Convert to Tensor
+# #     img_tensor = tf.expand_dims(img_tensor, axis=0)  # Add batch dimension
+
+# #     return img, img_tensor  # Return both original image and tensor
+# def preprocess_image(image_bytes):
+#     """Efficiently preprocess image for model inference."""
+#     img = Image.open(io.BytesIO(image_bytes))
+#     img = img.resize((640, 640))  # Resize once instead of multiple times
+#     img = np.array(img, dtype=np.uint8)  # Ensure uint8 format
+#     img = tf.convert_to_tensor(img)  # Convert to Tensor
+#     img = tf.expand_dims(img, axis=0)  # Add batch dimension
+#     return img
+# @app.post('/predict/')
+# async def predict(file: UploadFile = File(...)):
+#     """Predict objects in the uploaded image and return processed image with bounding boxes."""
+#     try:
+#         # Read and preprocess image
+#         image_bytes = await file.read()
+#         image, input_tensor = preprocess_image(image_bytes)
+
+#         # Perform inference
+#         output_dict = infer(input_tensor)
+
+#         # Extract detections
+#         boxes = output_dict["detection_boxes"].numpy()[0]  # Normalized bounding boxes
+#         scores = output_dict["detection_scores"].numpy()[0]  # Confidence scores
+#         classes = output_dict["detection_classes"].numpy()[0].astype(int)  # Class labels
+
+#         height, width, _ = image.shape
+#         detections = []
+
+#         for i in range(len(scores)):
+#             if scores[i] > 0.5:  # Confidence threshold
+#                 y_min, x_min, y_max, x_max = boxes[i]
+#                 x_min, x_max = int(x_min * width), int(x_max * width)
+#                 y_min, y_max = int(y_min * height), int(y_max * height)
+
+#                 detections.append({
+#                     "box": [x_min, y_min, x_max, y_max],
+#                     "score": float(scores[i]),
+#                     "class": int(classes[i])
+#                 })
+#                 class_id = int(classes[i])
+#                 class_name = COCO_CLASSES.get(class_id, "Unknown")
+#                 # Draw bounding box
+#                 cv2.rectangle(image, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
+
+#                 # Draw label
+#                 label = f"Class {class_name} ({scores[i]:.2f})"
+#                 cv2.putText(image, label, (x_min, max(y_min - 10, 20)), 
+#                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+#         # Encode image as JPEG
+#         _, encoded_image = cv2.imencode(".jpg", image)
+
+#         # Return processed image as response
+#         return Response(content=encoded_image.tobytes(), media_type="image/jpeg",
+#                         headers={"Content-Disposition": 'inline; filename="result.jpg"'})
+
+#     except Exception as e:
+#         return {"error": str(e)}
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import Response
-import tensorflow as tf
 import numpy as np
+import tensorflow.lite as tflite
 import cv2
 from PIL import Image
 import io
+import os
+from fastapi.responses import JSONResponse
+import asyncio
 
 app = FastAPI()
+# from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-# Load the model
-MODEL_PATH = "save_model"
-model = tf.saved_model.load(MODEL_PATH)
-infer = model.signatures['serving_default']
+# app = FastAPI()
 
-# def preprocess_image(image_bytes):
-#     """Preprocess uploaded image for model inference."""
-#     img = Image.open(io.BytesIO(image_bytes)).convert("RGB")  # Open and convert to RGB
-#     img = np.array(img)  # Convert to NumPy array
-#     img = tf.image.resize(img, (640, 640))  # Resize to model input size
-#     img = np.clip(img, 0, 255).astype(np.uint8)  # Ensure uint8 format
-#     img_tensor = tf.convert_to_tensor(img)  # Convert to Tensor
-#     img_tensor = tf.expand_dims(img_tensor, axis=0)  # Add batch dimension
+# Allow all origins (for debugging)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Change to ["http://127.0.0.1:8000"] in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-#     return img, img_tensor  # Return both original image and tensor
+# ✅ Add explicit OPTIONS route to fix preflight requests
+@app.options("/{full_path:path}")
+async def preflight(full_path: str):
+    return JSONResponse(content={"message": "Preflight OK"}, headers={
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+        "Access-Control-Allow-Headers": "*",
+    })
+
+@app.get("/")
+async def root():
+    return {"message": "FastAPI is running"}
+# Load COCO labels (Ensure this file exists)
+
+# Ensure correct model path
+MODEL_PATH = "portfolio/model.tflite"
+
+# Load TFLite model
+interpreter = tflite.Interpreter(model_path=MODEL_PATH)
+interpreter.allocate_tensors()
+
+# Get input and output tensor details
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
+
 def preprocess_image(image_bytes):
-    """Efficiently preprocess image for model inference."""
-    img = Image.open(io.BytesIO(image_bytes))
-    img = img.resize((640, 640))  # Resize once instead of multiple times
-    img = np.array(img, dtype=np.uint8)  # Ensure uint8 format
-    img = tf.convert_to_tensor(img)  # Convert to Tensor
-    img = tf.expand_dims(img, axis=0)  # Add batch dimension
-    return img
+    """Preprocess image for model."""
+    img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+    img = img.resize((640, 640))
+    img_array = np.array(img, dtype=np.uint8)
+    img_tensor = np.expand_dims(img_array, axis=0)
+    return img_tensor, img_array
+
+def process_image(image_bytes):
+    """Run model inference."""
+    input_tensor, original_image = preprocess_image(image_bytes)
+    
+    # Set input tensor
+    interpreter.set_tensor(input_details[0]['index'], input_tensor)
+    interpreter.invoke()
+
+    # Get outputs
+    boxes = interpreter.get_tensor(output_details[0]['index'])[0]
+    scores = interpreter.get_tensor(output_details[1]['index'])[0]
+    classes = interpreter.get_tensor(output_details[2]['index'])[0].astype(int)
+
+    height, width, _ = original_image.shape
+
+    for i in range(len(scores)):
+        if scores[i] > 0.5:  # Confidence threshold
+            y_min, x_min, y_max, x_max = boxes[i]
+            x_min, x_max = int(x_min * width), int(x_max * width)
+            y_min, y_max = int(y_min * height), int(y_max * height)
+
+            class_id = int(classes[i])
+            class_name = COCO_CLASSES.get(class_id, f"Class {class_id}")
+
+            # Draw bounding box
+            cv2.rectangle(original_image, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
+
+            # Draw label
+            label = f"{class_name} ({scores[i]:.2f})"
+            cv2.putText(original_image, label, (int(x_min), int(max(y_min - 10, 20))),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+    _, encoded_image = cv2.imencode(".jpg", original_image)
+    return encoded_image
+
 @app.post('/predict/')
 async def predict(file: UploadFile = File(...)):
-    """Predict objects in the uploaded image and return processed image with bounding boxes."""
-    try:
-        # Read and preprocess image
-        image_bytes = await file.read()
-        image, input_tensor = preprocess_image(image_bytes)
+    """Predict objects in image."""
+    loop = asyncio.get_running_loop()
+    image_bytes = await file.read()
+    
+    # Run inference in background thread
+    encoded_image = await loop.run_in_executor(None, process_image, image_bytes)
 
-        # Perform inference
-        output_dict = infer(input_tensor)
-
-        # Extract detections
-        boxes = output_dict["detection_boxes"].numpy()[0]  # Normalized bounding boxes
-        scores = output_dict["detection_scores"].numpy()[0]  # Confidence scores
-        classes = output_dict["detection_classes"].numpy()[0].astype(int)  # Class labels
-
-        height, width, _ = image.shape
-        detections = []
-
-        for i in range(len(scores)):
-            if scores[i] > 0.5:  # Confidence threshold
-                y_min, x_min, y_max, x_max = boxes[i]
-                x_min, x_max = int(x_min * width), int(x_max * width)
-                y_min, y_max = int(y_min * height), int(y_max * height)
-
-                detections.append({
-                    "box": [x_min, y_min, x_max, y_max],
-                    "score": float(scores[i]),
-                    "class": int(classes[i])
-                })
-                class_id = int(classes[i])
-                class_name = COCO_CLASSES.get(class_id, "Unknown")
-                # Draw bounding box
-                cv2.rectangle(image, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
-
-                # Draw label
-                label = f"Class {class_name} ({scores[i]:.2f})"
-                cv2.putText(image, label, (x_min, max(y_min - 10, 20)), 
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-
-        # Encode image as JPEG
-        _, encoded_image = cv2.imencode(".jpg", image)
-
-        # Return processed image as response
-        return Response(content=encoded_image.tobytes(), media_type="image/jpeg",
-                        headers={"Content-Disposition": 'inline; filename="result.jpg"'})
-
-    except Exception as e:
-        return {"error": str(e)}
+    return Response(content=encoded_image.tobytes(), media_type="image/jpeg",
+                    headers={"Content-Disposition": 'inline; filename="result.jpg"'})

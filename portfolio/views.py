@@ -10,6 +10,7 @@ import numpy as np
 import requests
 from django.http import HttpResponse
 import io
+import base64
 FASTAPI_URL  = 'http://127.0.0.1:9000/predict/'
 
 def index_view(request):
@@ -94,7 +95,7 @@ def object_detection_view(request):
     """
     return render(request, "object_detection.html")  # Ensure this file exists in templates/
 
-@csrf_exempt
+# @csrf_exempt
 # def object_detection(request):
 #     """
 #     Receives image frames from the frontend, sends them to FastAPI for inference,
@@ -139,27 +140,57 @@ def object_detection_view(request):
 #         return JsonResponse({"error": "FastAPI error", "details": response.text}, status=500)
 
 #     return JsonResponse({"error": "Invalid request"}, status=400)
+# def object_detection(request):
+#     """Send image to FastAPI and return the processed image."""
+#     if request.method == 'POST' and request.FILES.get('image'):
+#         image_file = request.FILES['image']
+
+#         try:
+#             # Resize the image before sending
+#             img = Image.open(image_file)
+#             img = img.convert("RGB")
+#             img.thumbnail((640, 640))  # Resize while maintaining aspect ratio
+            
+#             # Convert to bytes
+#             img_io = io.BytesIO()
+#             img.save(img_io, format='JPEG')
+#             img_io.seek(0)
+
+#             # Send to FastAPI
+#             response = requests.post(FASTAPI_URL, files={'file': img_io}, timeout=300)
+
+#             if response.status_code == 200:
+#                 return HttpResponse(response.content, content_type="image/jpeg")
+#             else:
+#                 return JsonResponse({'error': f'FastAPI error: {response.text}'}, status=response.status_code)
+
+#         except requests.exceptions.RequestException as e:
+#             return JsonResponse({'error': f'Request failed: {str(e)}'}, status=500)
+
+#     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+@csrf_exempt
 def object_detection(request):
     """Send image to FastAPI and return the processed image."""
     if request.method == 'POST' and request.FILES.get('image'):
         image_file = request.FILES['image']
 
         try:
-            # Resize the image before sending
-            img = Image.open(image_file)
-            img = img.convert("RGB")
+            # Resize image before sending
+            img = Image.open(image_file).convert("RGB")
             img.thumbnail((640, 640))  # Resize while maintaining aspect ratio
-            
+
             # Convert to bytes
             img_io = io.BytesIO()
             img.save(img_io, format='JPEG')
             img_io.seek(0)
 
-            # Send to FastAPI
-            response = requests.post(FASTAPI_URL, files={'file': img_io}, timeout=300)
+            # Send image to FastAPI
+            files = {'file': ('image.jpg', img_io, 'image/jpeg')}
+            response = requests.post(FASTAPI_URL, files=files, timeout=30)
 
             if response.status_code == 200:
-                return HttpResponse(response.content, content_type="image/jpeg")
+                return HttpResponse(response.content, content_type=response.headers.get("content-type", "image/jpeg"))
             else:
                 return JsonResponse({'error': f'FastAPI error: {response.text}'}, status=response.status_code)
 
@@ -167,3 +198,63 @@ def object_detection(request):
             return JsonResponse({'error': f'Request failed: {str(e)}'}, status=500)
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
+def object_detection_live_yolo_v8(request):
+
+    return render(request, "live_object_detection_yolo_v8.html")  
+
+@csrf_exempt
+def object_detectin_yolo_v8(request):
+    print("Received request:", request.method)  # Debugging log
+
+    if request.method == "POST":
+        if "image" not in request.FILES:
+            print("No image file found in request.")  # Debugging log
+            return JsonResponse({"error": "No image file found in request"}, status=400)
+
+        image_file = request.FILES["image"]
+        print("Image received:", image_file.name, image_file.size)  # Debugging log
+
+        files = {"file": image_file}
+        
+        try:
+            # Send the image to FastAPI for prediction
+            response = requests.post("http://127.0.0.1:8100/live-object-detection/", files=files)
+            # print("FastAPI Response:", response.text)  # Debugging log
+
+            return JsonResponse(response.json())
+
+        except requests.exceptions.RequestException as e:
+            print("Request failed:", str(e))  # Debugging log
+            return JsonResponse({"error": "Failed to connect to FastAPI"}, status=500)
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+
+from django.shortcuts import render
+from django.core.files.storage import FileSystemStorage
+from portfolio.detector import run_inference, visualize
+import tensorflow as tf
+
+def image_classification(request):
+    if request.method == "POST" and request.FILES.get("image"):
+        image_file = request.FILES["image"]
+
+        # Save uploaded image temporarily in memory
+        temp_path = "temp_image.jpg"
+        with open(temp_path, "wb") as f:
+            for chunk in image_file.chunks():
+                f.write(chunk)
+
+        # Run object detection
+        boxes, scores, classes = run_inference(temp_path)
+
+        # Visualize results
+        detected_image = visualize(temp_path, boxes, scores, classes)
+
+        # Convert processed image to base64 for frontend display
+        _, buffer = cv2.imencode(".jpg", detected_image)
+        image_base64 = base64.b64encode(buffer).decode("utf-8")
+
+        return JsonResponse({"image": image_base64})
+
+    return render(request, "Image_Classification.html")

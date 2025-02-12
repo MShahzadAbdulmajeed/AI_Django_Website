@@ -11,7 +11,7 @@
             margin: 10px auto;
         }
         canvas {
-            display: none; /* Hide canvas to optimize performance */
+            display: none;
         }
     </style>
 </head>
@@ -23,65 +23,67 @@
     <img id="outputImage" alt="Detected Objects">
 
     <script>
+        const API_URL = "http://127.0.0.1:9000/predict/";
+
         function getCSRFToken() {
-            return document.cookie.split('; ')
-                .find(row => row.startsWith('csrftoken='))
-                ?.split('=')[1];
+            const csrfInput = document.querySelector('input[name="csrfmiddlewaretoken"]');
+            return csrfInput ? csrfInput.value : '';
         }
-    
+
         const video = document.getElementById('inputVideo');
         const canvas = document.getElementById('preview');
         const ctx = canvas.getContext('2d');
         const outputImage = document.getElementById('outputImage');
-        let lastObjectURL = null; 
-    
-        async function getFrameBlob() {
+        let lastObjectURL = null;
+
+        function getFrameBlob() {
             return new Promise((resolve) => {
-                const dataURL = canvas.toDataURL("image/jpeg", 0.7); 
-                fetch(dataURL)
-                    .then(res => res.blob())
-                    .then(resolve);
+                canvas.toBlob(resolve, "image/jpeg", 0.7);
             });
         }
-    
+
         async function captureFrame() {
             if (!video.videoWidth || !video.videoHeight) return;
-    
-            canvas.width = 320;  // Reduce size for faster API response
-            canvas.height = 240;
+
+            canvas.width = 640; // Match model's input size
+            canvas.height = 640;
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    
+
             const blob = await getFrameBlob();
             const formData = new FormData();
-            formData.append('image', new File([blob], 'frame.jpg'));
-    
+            formData.append('file', new File([blob], 'frame.jpg'));
+
             try {
-                const response = await fetch("{% url 'object_detection' %}", {
+                const response = await fetch("http://127.0.0.1:9000/predict/", {
                     method: 'POST',
                     body: formData,
-                    headers: { 'X-CSRFToken': getCSRFToken() },
-                    timeout: 6000 
+                    headers: {
+                        'X-CSRFToken': getCSRFToken(),
+                        'Origin': 'http://127.0.0.1:8000'
+                    },
+                    credentials: 'include',
                 });
-    
+
                 if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-    
+
                 const resultBlob = await response.blob();
-    
+
                 if (lastObjectURL) URL.revokeObjectURL(lastObjectURL);
                 lastObjectURL = URL.createObjectURL(resultBlob);
                 outputImage.src = lastObjectURL;
-    
+
             } catch (error) {
                 console.error("Error:", error);
             }
         }
-    
+
         async function processLiveFrames() {
             while (true) {
                 await captureFrame();
+                await new Promise(resolve => setTimeout(resolve, 500)); // Add delay
             }
         }
-    
+
         navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
             .then((stream) => {
                 video.srcObject = stream;
@@ -89,5 +91,9 @@
             })
             .catch((err) => console.error('Error accessing webcam:', err));
     </script>
+
+    <form style="display: none;">
+        {% csrf_token %}
+    </form>
 </body>
 </html>

@@ -21,6 +21,5 @@ urlpatterns = [
     path("object-detection/", views.object_detection, name="object_detection"),
     path("live-object-detection/", views.object_detectin_yolo_v8, name="object_detection_yolo_v8"),
     path("live-object-detection-yolo/", views.object_detection_live_yolo_v8, name="object_detection_yolo"),
-    path("image-classification/", views.image_classification, name="image_classification"),
     
 ]
