@@ -35,3 +35,10 @@ yolov8n.pt
 
 # SQLite database file (in case another file name is used)
 db.sqlite3
+
+portfolio/model.tflite
+portfolio/yolov8n.pt
+
+yolov8n.pt
+
+
