@@ -30,8 +30,8 @@ save_model/
 save_model/variables/
 
 # Machine learning model files
-*.tflite
-*.yolov8n.pt
+model.tflite
+yolov8n.pt
 
 # SQLite database file (in case another file name is used)
 db.sqlite3
