@@ -1,0 +1,37 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Django migrations
+*/migrations/*
+
+# Django secret keys and settings files
+*.env/
+
+# Database files
+*.sqlite3
+
+# Virtual environment folder (if used)
+venv/
+newenv/
+
+# Node modules
+node_modules/
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+
+# Static and media files (if generated locally and not part of the repo)
+static/
+media/
+save_model/
+save_model/variables/
+
+# Machine learning model files
+*.tflite
+*.yolov8n.pt
+
+# SQLite database file (in case another file name is used)
+db.sqlite3

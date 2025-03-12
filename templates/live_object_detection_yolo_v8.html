@@ -1,0 +1,388 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+        {% load static %}
+        <title>Topic Listing Contact Page</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">
+                        
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/bootstrap-icons.css' %}" rel="stylesheet">
+        <link href="{% static 'css/templatemo-topic-listing.css' %}" rel="stylesheet">
+
+                        
+        <link href="{% static 'css/live_object_detection_yolo_v8.css' %}" rel="stylesheet">
+
+
+
+        <link rel="shortcut icon" type="image/icon" href="{% static 'assets/logo/favicon.png' %}"/>
+       
+        <!--font-awesome.min.css-->
+        <link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
+
+		<!--flat icon css-->
+		<link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+
+		<!--animate.css-->
+        <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+
+        <!--owl.carousel.css-->
+        <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/owl.theme.default.min.css' %}">
+		
+        <!--bootstrap.min.css-->
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+		
+		<!-- bootsnav -->
+		<link rel="stylesheet" href="{% static 'assets/css/bootsnav.css' %}" >	
+        
+        <!--style.css-->
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+        
+        <!--responsive.css-->
+        <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+
+
+         
+<!--
+
+TemplateMo 590 topic listing
+
+https://templatemo.com/tm-590-topic-listing
+
+-->
+    </head>
+<body>
+
+    {% include "header.html" %}
+    {% comment %} <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <img id="processed_img" width="640" height="480" /> {% endcomment %}
+    
+    <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <div class="result">
+        <img id="processed_img"  />
+        
+    </div>
+
+    
+
+    <!--about start -->
+    <section id="about" class="about">
+        <div class="section-heading text-center">
+            <h2>about me</h2>
+        </div>
+        <div class="container">
+            <div class="about-content">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="single-about-txt">
+                            <h3>
+                                I am a skilled Software Engineer with expertise in Full-Stack Development, Machine Learning, and Computer Vision. Passionate about AI-driven solutions, I specialize in building and optimizing deep learning models for real-time applications, particularly in object detection.                            </h3>
+                            <p>
+                                With a strong foundation in React, Django, TensorFlow, and C++, I develop scalable, high-performance applications that seamlessly integrate AI with intuitive UI/UX. My experience spans front-end and back-end development, ensuring robust, efficient, and user-friendly software solutions. Constantly exploring innovations in artificial intelligence, I strive to push the boundaries of technology to create impactful and intelligent systems.                            </p>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="single-about-add-info">
+                                        <h3>phone</h3>
+                                        <p>0309-9081285</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="single-about-add-info">
+                                        <h3>email</h3>
+                                        <p>shahzad.abdulmajeed4894@gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <!-- <div class="single-about-add-info">
+                                        <h3>website</h3>
+                                        <p>www.brownsine.com</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-1 col-sm-5">
+                        <div class="single-about-img">
+                            <img src={% static "images/shahzad_image.jpg"%} alt="profile_image">
+                            <div class="about-list-icon">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <i  class="fa fa-facebook" aria-hidden="true"></i>
+                                        </a>
+                                    </li><!-- / li -->
+                                    <li>
+                                        <a href="#">
+                                            <i  class="fa fa-dribbble" aria-hidden="true"></i>
+                                        </a>
+                                        
+                                    </li><!-- / li -->
+                                    <li>
+                                        <a href="#">
+                                            <i  class="fa fa-twitter" aria-hidden="true"></i>
+                                        </a>
+                                        
+                                    </li><!-- / li -->
+                                    <li>
+                                        <a href="#">
+                                            <i  class="fa fa-linkedin" aria-hidden="true"></i>
+                                        </a>
+                                    </li><!-- / li -->
+                                    <li>
+                                        <a href="#">
+                                            <i  class="fa fa-instagram" aria-hidden="true"></i>
+                                        </a>
+                                    </li><!-- / li -->
+                                    
+                                    
+                                </ul><!-- / ul -->
+                            </div><!-- /.about-list-icon -->
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!--/.about-->
+    <!--about end -->
+    
+    <section id="experience" class="experience">
+        <div class="section-heading text-center">
+            <h2>How Is It Work</h2>
+        </div>
+        <div class="container">
+            <div class="experience-content">
+                    <div class="main-timeline">
+                        <ul>
+                            <li>
+                                <div class="single-timeline-box fix">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="experience-time text-right">
+                                                <h2>Capturing Live Video</h2>
+                                                <h3>Getting Real-Time Frames</h3>
+                                            </div><!--/.experience-time-->
+                                        </div><!--/.col-->
+                                        <div class="col-md-offset-1 col-md-5">
+                                            <div class="timeline">
+                                                <div class="timeline-content">
+                                                    <h4 class="title">
+                                                        <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                        Captures real-time frames from a webcam.
+                                                    </h4>
+                                                    <h5>Live video input processing.</h5>
+                                                    <p class="description">
+                                                        The first step in live object detection is capturing real-time frames from a webcam or video source. This is done using OpenCV's cv2.VideoCapture(), which continuously retrieves frames in a loop. Each frame acts as a still image that will be processed by the object detection pipeline. Ensuring smooth frame capture is crucial for maintaining real-time performance and avoiding lag.                                                    </p>
+                                                </div><!--/.timeline-content-->
+                                            </div><!--/.timeline-->
+                                        </div><!--/.col-->
+                                    </div>
+                                </div><!--/.single-timeline-box-->
+                            </li>
+
+                            <li>
+                                <div class="single-timeline-box fix">
+                                    <div class="row">
+                                        <div class="col-md-offset-1 col-md-5 experience-time-responsive">
+                                            <div class="experience-time">
+                                                <h2>
+                                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                    Preprocessing Frames 
+                                                </h2>
+                                                <h3>Preparing for Detection</h3>
+                                            </div><!--/.experience-time-->
+                                        </div><!--/.col-->
+                                        <div class="col-md-5">
+                                            <div class="timeline">
+                                                <div class="timeline-content text-right">
+                                                    <h4 class="title">
+                                                        Preprocessing Frames
+                                                    </h4>
+                                                    <h5>Preparing for Detection</h5>
+                                                    
+                                                </div><!--/.timeline-content-->
+                                            </div><!--/.timeline-->
+                                        </div><!--/.col-->
+                                        <div class="col-md-offset-1 col-md-5 experience-time-main">
+                                            <div class="experience-time">
+                                                <h2>
+                                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                    Resizes, normalizes, and formats frames for the model.
+                                                </h2>
+                                                <h3>Image preprocessing for detection.</h3>
+                                                <p class="description">
+                                                    Before feeding the frames into the object detection model, preprocessing is required. The frames are resized to match the input shape expected by the TensorFlow Faster R-CNN model. Pixel values are normalized (scaled between 0 and 1) to ensure consistent model predictions. The image format is also converted into a TensorFlow-compatible tensor to be processed efficiently. This step ensures that the model receives structured input for accurate object detection.                                                    </p>
+                                            </div><!--/.experience-time-->
+                                        </div><!--/.col-->
+                                    </div>
+                                </div><!--/.single-timeline-box-->
+                            </li>
+
+                            <li>
+                                <div class="single-timeline-box fix">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="experience-time text-right">
+                                                <h2>Running Object Detection</h2>
+                                                <h3>Identifying Objects with a Custom TensorFlow Model</h3>
+                                            </div><!--/.experience-time-->
+                                        </div><!--/.col-->
+                                        <div class="col-md-offset-1 col-md-5">
+                                            <div class="timeline">
+                                                <div class="timeline-content">
+                                                    <h4 class="title">
+                                                        <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                        The self-trained Faster R-CNN model detects objects.
+                                                    </h4>
+                                                    <h5>TensorFlow model performs detection.</h5>
+                                                    <p class="description">
+                                                        Once the frames are preprocessed, they are passed through the self-trained Faster R-CNN Inception ResNet V2 model. This TensorFlow-based model has been trained on a specific dataset to recognize objects of interest. It processes the input image and predicts multiple objects by outputting bounding boxes, class labels, and confidence scores. The detection process involves deep neural network layers analyzing patterns, extracting features, and making predictions based on the learned data.                                                    </p>
+                                                </div><!--/.timeline-content-->
+                                            </div><!--/.timeline-->
+                                        </div><!--/.col-->
+                                    </div>
+                                </div><!--/.single-timeline-box-->
+                            </li>
+
+                            <li>
+                                <div class="single-timeline-box fix">
+                                    <div class="row">
+                                        <div class="col-md-offset-1 col-md-5 experience-time-responsive">
+                                            <div class="experience-time">
+                                                <h2>
+                                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                    Filters detections and removes overlapping results.
+                                                </h2>
+                                                <h3>Refines and optimizes predictions.</h3>
+                                                <p class="description">
+                                                    Duis aute irure dolor in reprehenderit in vol patate velit esse cillum dolore eu fugiat nulla pari. Excepteur sint occana inna tecat cupidatat non proident. 
+                                                </p>
+                                            </div><!--/.experience-time-->
+                                        </div><!--/.col-->
+                                        <div class="col-md-5">
+                                            <div class="timeline">
+                                                <div class="timeline-content text-right">
+                                                    <h4 class="title">
+                                                        Postprocessing Results 
+                                                    </h4>
+                                                    <h5>Filtering and Refining</h5>
+                                                    
+                                                </div><!--/.timeline-content-->
+                                            </div><!--/.timeline-->
+                                        </div><!--/.col-->
+                                        <div class="col-md-offset-1 col-md-5 experience-time-main">
+                                            <div class="experience-time">
+                                                <h2>
+                                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                    Filters detections and removes overlapping results.
+                                                </h2>
+                                                <h3>Refines and optimizes predictions.</h3>
+                                                <p class="description">
+                                                    After running the model, the raw predictions are processed to refine the results. Confidence thresholds are applied to remove low-confidence detections, ensuring only accurate predictions are displayed. Additionally, Non-Maximum Suppression (NMS) is used to eliminate redundant overlapping boxes, selecting only the most confident prediction for each detected object. This step helps in improving the clarity of the output by reducing false positives.                                                </p>
+                                            </div><!--/.experience-time-->
+                                        </div><!--/.col-->
+                                    </div>
+                                </div><!--/.single-timeline-box-->
+                            </li>
+
+                            <li>
+                                <div class="single-timeline-box fix">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="experience-time text-right">
+                                                <h2> Displaying Output</h2>
+                                                <h3>Visualizing Objects on Screen</h3>
+                                            </div><!--/.experience-time-->
+                                        </div><!--/.col-->
+                                        <div class="col-md-offset-1 col-md-5">
+                                            <div class="timeline">
+                                                <div class="timeline-content">
+                                                    <h4 class="title">
+                                                        <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                        Draws detection results on frames and displays them.
+                                                    </h4>
+                                                    <h5>Shows detected objects in real-time.</h5>
+                                                    <p class="description">
+                                                        The processed detections, including bounding boxes, class labels, and confidence scores, are overlaid onto the original video frames using OpenCV. This creates a real-time visual output where detected objects are clearly marked on the screen. The modified frames are then displayed in a window using cv2.imshow(), allowing users to see the live object detection results in action. The loop continues processing new frames, maintaining a seamless real-time detection experience.                                                    </p>
+                                                </div><!--/.timeline-content-->
+                                            </div><!--/.timeline-->
+                                        </div><!--/.col-->
+                                    </div>
+                                </div><!--/.single-timeline-box-->
+                            </li>
+
+                        </ul>
+                    </div><!--.main-timeline-->
+                </div><!--.experience-content-->
+        </div>
+
+    </section><!--/.experience-->
+    <!--experience end -->
+
+    {% include "footer.html" %}
+    
+    <script src="{% static "js/live_object_detection_yolo_v8.js" %}"></script>
+
+    <script src="{% static 'assets/js/jquery.js' %}"></script>
+        
+        <!--modernizr.min.js-->
+        <script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js' %}"></script>
+		
+		<!--bootstrap.min.js-->
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+		
+		<!-- bootsnav js -->
+		<script src="{% static 'assets/js/bootsnav.js' %}"></script>
+		
+		<!-- jquery.sticky.js -->
+		<script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
+		
+		<!-- for progress bar start-->
+
+		<!-- progressbar js -->
+        <script src="{% static 'assets/js/progressbar.js' %}"></script>
+		<!-- appear js -->
+		<script src="{% static 'assets/js/jquery.appear.js' %}"></script>
+
+		<!-- for progress bar end -->
+
+		<!--owl.carousel.js-->
+        <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+
+
+		<script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js' %}"></script>
+		
+        
+        <!--Custom JS-->
+        <script src="{% static 'assets/js/custom.js' %}"></script>
+        <script src="{% static "js/jquery.min.js" %}"></script>
+        <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+        <script src="{% static "js/jquery.sticky.js" %}"></script>
+        <script src="{% static "js/click-scroll.js" %}"></script>
+        <script src="{% static "js/custom.js" %}"></script>
+
+
+
+
+
+
+    
+    
+
+    
+
+</body>
+</html>
