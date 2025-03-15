@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+}
+.main{
+    margin-top: 7%;
+}
+.main_outer_div {
+    width: 100%;  
+    height: auto;  
+    overflow: hidden; 
+    background-image: linear-gradient(15deg, #407affc9 0%, #27d8c4c2 100%);
+    text-align:center;
+    padding-top: 3%;
+}
+.main_div {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: auto;
+    margin-bottom: 18px;
+}
+
+.upload_image_title_div h2 {
+    color: #333;
+    font-size: 22px;
+}
+
+.upload-area {
+    border: 2px dashed #4CAF50;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease-in-out;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.upload-area:hover {
+    background-color: #e8f5e9;
+}
+
+.upload-area.dragover {
+    background-color: #c8e6c9;
+    border-color: #388e3c;
+}
+
+.custom-file-upload {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-block;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+.custom-file-upload:hover {
+    background-color: #45a049;
+}
+
+#imageInput {
+    display: none;
+}
+
+#previewImage, #outputImage {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 10px;
+    display: none;
+}
+
+#button {
+    background-color: rgb(65, 201, 65);
+    color: white;
+    
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#button:hover {
+    background-color: green;
+}
+
+h3 {
+    color: #333;
+    margin-top: 20px;
+    font-size: 20px;
+}
+.about_me_wraper {
+    background-color: white;
+}
+#detectedObjects {
+    margin: 0;
+    color: #43485c;
+    
+    font-family: 'Poppins', sans-serif;
+    text-transform: capitalize;
+    font-size: larger;
+}
+#waitSomeSeconds {
+    margin: 0;
+    color: #43485c;
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+    text-transform: capitalize;
+    font-size: small;
+}

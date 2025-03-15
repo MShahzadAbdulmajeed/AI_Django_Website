@@ -9,17 +9,18 @@
         {% load static %}
         <title>Topic Listing Bootstrap 5 Template</title>
 
-        <!-- CSS FILES -->        
+        <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">
-                        
+
+        <!-- Bootstrap 3 CSS -->
         <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
         <link href="{% static 'css/bootstrap-icons.css' %}" rel="stylesheet">
-        <link href="{% static 'css/templatemo-topic-listing.css' %}" rel="stylesheet">      
-<!--
+        <link href="{% static 'css/templatemo-topic-listing.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+        <!--
 
 TemplateMo 590 topic listing
 
@@ -169,6 +170,7 @@ https://templatemo.com/tm-590-topic-listing
                 </div>
 
                 <div class="container">
+                    
                     <div class="row">
 
                         <div class="col-12">
@@ -224,7 +226,7 @@ https://templatemo.com/tm-590-topic-listing
                                                         <span class="badge bg-design rounded-pill ms-auto">100</span>
                                                     </div>
 
-                                                    <img src="{% static 'images\topics\face_recongnization.avif' %}" class="custom-block-image img-fluid" alt="">
+                                                    <img src="{% static 'images\topics\face_recongnization.jpg' %}" class="custom-block-image img-fluid" alt="">
                                                 </a>
                                             </div>
                                         </div>
@@ -246,7 +248,7 @@ https://templatemo.com/tm-590-topic-listing
                                                             <span class="badge bg-advertising rounded-pill ms-auto">30</span>
                                                         </div>
 
-                                                        <img src="{% static 'images\topics\sentiment_analysis.avif' %}" class="custom-block-image img-fluid" alt="">
+                                                        <img src="{% static 'images\topics\sentiment_analysis.jpg' %}" class="custom-block-image img-fluid" alt="">
                                                     </a>
                                                 </div>
                                             </div>
@@ -264,7 +266,7 @@ https://templatemo.com/tm-590-topic-listing
                                                             <span class="badge bg-advertising rounded-pill ms-auto">65</span>
                                                         </div>
 
-                                                        <img src="{% static 'images\topics\text_summerization.png' %}" class="custom-block-image img-fluid" alt="">
+                                                        <img src="{% static 'images\topics\text_summerization.jpg' %}" class="custom-block-image img-fluid" alt="">
                                                     </a>
                                                 </div>
                                             </div>
@@ -303,7 +305,7 @@ https://templatemo.com/tm-590-topic-listing
                                                         <span class="badge bg-finance rounded-pill ms-auto">30</span>
                                                     </div>
 
-                                                    <img src="{% static 'images\topics\Model_training.png' %}" class="custom-block-image img-fluid" alt="">
+                                                    <img src="{% static 'images\topics\Model_training.jpg' %}" class="custom-block-image img-fluid" alt="">
                                                 </a>
                                             </div>
                                         </div>
@@ -311,7 +313,7 @@ https://templatemo.com/tm-590-topic-listing
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="custom-block custom-block-overlay">
                                                 <div class="d-flex flex-column h-100">
-                                                    <img src="{% static 'images/businesswoman-using-tablet-analysis-graph-company-finance-strategy-statistics-success-concept-planning-future-office-room.jpg' %}" class="custom-block-image img-fluid" alt="">
+                                                    <img src="{% static 'images/businesswoman-using-tablet-analysis.jpg' %}" class="custom-block-image img-fluid" alt="">
 
                                                     <div class="custom-block-overlay-text d-flex">
                                                         <div>
@@ -649,17 +651,11 @@ https://templatemo.com/tm-590-topic-listing
 
 {% include "footer.html" %}
 
-
-        <!-- JAVASCRIPT FILES -->
-        
-        <script src="{% static "js/jquery.min.js" %}"></script>
-        <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
-        <script src="{% static "js/jquery.sticky.js" %}"></script>
-        <script src="{% static "js/click-scroll.js" %}"></script>
-        <script src="{% static "js/custom.js" %}"></script>
-        
-        
-        
-
+<script src="{% static 'js/jquery.min.js' %}"></script> <!-- jQuery -->
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script> <!-- Bootstrap 5 -->
+<script src="{% static 'js/jquery.sticky.js' %}"></script>
+<script src="{% static 'js/click-scroll.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="{% static 'js/custom.js' %}"></script>
     </body>
 </html>

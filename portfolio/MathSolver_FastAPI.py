@@ -53,7 +53,7 @@ async def solve_math(
 ):
     try:
         # ✅ Extract JSON if request type is application/json
-        if request.headers.get("content-type") == "application/json":
+        if request.headers.get("content-type", "").startswith("application/json"):
             json_data = await request.json()
             user_text = json_data.get("user_text")
 

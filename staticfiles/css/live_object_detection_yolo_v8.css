@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+}
+
+.result {
+    width: 100%;  /* Or a specific width */
+    height: auto;   /* Or a specific height */
+    overflow: hidden; /* Important if using padding! Prevents content from overflowing */
+    background-image: linear-gradient(15deg, #407affc9 0%, #27d8c4c2 100%);
+    text-align:center;
+    padding-top: 3%;
+}
+
+#processed_img {
+     /* Adjust for padding */
+    object-fit: cover;
+    padding: 20px;  /* Adds padding on all sides */
+    /* border-radius: 50px; */
+}
+
+#video, #canvas { /* Hide the video and canvas if the processed image should cover them fully */
+    display: none; 
+}

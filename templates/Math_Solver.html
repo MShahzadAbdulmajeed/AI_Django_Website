@@ -7,6 +7,8 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/Math_Solver.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </head>
 <body>
     <div class="chat-container">
@@ -24,6 +26,8 @@
 
         <!-- Input Field -->
         <div class="input-container">
+            <div id="image-preview-container" class="image-preview-container"></div>
+            
             <label for="file-upload" class="attachment-icon">
                 <i class="fas fa-paperclip"></i>
                 <input type="file" id="file-upload" accept="image/*" hidden>
@@ -32,88 +36,12 @@
             <button id="send-button"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
-    <script>
-        const chatBox = document.getElementById("chat-box");
-        const userInput = document.getElementById("user-input");
-        const fileUpload = document.getElementById("file-upload");
-        const sendButton = document.getElementById("send-button");
+<script src="{% static 'js/MathSolver.js' %}"></script>
+<script type="text/javascript" async 
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
     
-        sendButton.addEventListener("click", sendMessage);
-        userInput.addEventListener("keypress", function(event) {
-            if (event.key === "Enter") sendMessage();
-        });
-    
-        function sendMessage() {
-            const text = userInput.value.trim();
-            const file = fileUpload.files[0];
-    
-            if (text === "" && !file) return; // Prevent empty messages
-    
-            const formData = new FormData();
-            if (text) formData.append("user_text", text);
-            if (file) formData.append("image", file);
-    
-            // Append user message
-            appendUserMessage(text, file);
-    
-            // Send request to FastAPI
-            fetch("http://127.0.0.1:8080/solve-math/", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                appendBotMessage(data.solution || "Error processing your request.");
-            })
-            .catch(error => {
-                console.error("Fetch error:", error);
-                appendBotMessage("Server error. Try again later.");
-            })
-            .finally(() => {
-                // Clear input & file selection after response is processed
-                userInput.value = "";
-                fileUpload.value = "";
-            });
-        }
-    
-        function appendUserMessage(text, file) {
-            if (!text && !file) return;
-    
-            clearChatIfNeeded(); // Clear messages if first message
-    
-            const userMessage = document.createElement("div");
-            userMessage.classList.add("chat-message", "user-message");
-    
-            if (file) {
-                userMessage.innerHTML = `<span>📷 Image Uploaded</span>`;
-            } else {
-                userMessage.innerHTML = `<span>${text}</span>`;
-            }
-    
-            chatBox.appendChild(userMessage);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-    
-        function appendBotMessage(message) {
-            const botMessage = document.createElement("div");
-            botMessage.classList.add("chat-message", "bot-message");
-            botMessage.innerHTML = `<span>${message}</span>`;
-    
-            chatBox.appendChild(botMessage);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-    
-        function clearChatIfNeeded() {
-            if (chatBox.children.length === 1) {
-                chatBox.innerHTML = ""; // Clear initial bot message if chat is empty
-            }
-        }
-    </script>
     
 </body>
 </html>

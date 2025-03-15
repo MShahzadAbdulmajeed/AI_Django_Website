@@ -314,7 +314,7 @@ FASTAPI_URL_MathSolver = "http://127.0.0.1:8080/solve-math/"  # FastAPI endpoint
 @csrf_exempt
 def solve_math(request):
     if request.method == "POST":
-        user_text = request.POST.get("user_input", "")
+        user_text = request.POST.get("user_text", "")
         image = request.FILES.get("image", None)
 
         # Prepare the data for FastAPI

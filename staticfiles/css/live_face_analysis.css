@@ -1,0 +1,14 @@
+#video-container {
+    width: 100%;  /* Or a specific width */
+    height: auto;   /* Or a specific height */
+    overflow: hidden; /* Important if using padding! Prevents content from overflowing */
+    background-image: linear-gradient(15deg, #407affc9 0%, #27d8c4c2 100%);
+    text-align:center;
+    padding-top: 3%;
+}
+#outputImage {
+    object-fit: cover;
+    padding: 20px;
+}
+
+
