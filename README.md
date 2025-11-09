@@ -102,7 +102,7 @@ I’m open to exciting AI collaborations and freelance projects! Let’s build t
 
 📧 **Email:** shahzad.abdulmajeed4894@gmail.com  
 📱 **Phone:** +92 320 6236425  
-🔗 [Linkedin](www.linkedin.com/in/shahzad-abdulmajeed-618887220) / [fiverr](https://www.fiverr.com/s/vv7yxX1) / [upwork](https://www.upwork.com/freelancers/~01f51f61f5536e6eb2?mp_source=share)
+🔗 [Linkedin](www.linkedin.com/in/shahzad-abdulmajeed-618887220)
 
 ---
 
